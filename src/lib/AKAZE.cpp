@@ -452,7 +452,7 @@ void AKAZE::Do_Subpixel_Refinement(std::vector<cv::KeyPoint>& kpts) {
  * @param kpts Vector of detected keypoints
  * @param desc Matrix to store the descriptors
 */
-void AKAZE::Compute_Descriptors(std::vector<cv::KeyPoint>& kpts, cv::Mat& desc) {
+void AKAZE::Compute_Descriptors(std::vector<cv::KeyPoint>& kpts, cv::Mat& desc, bool is_rotation_invariant) {
 
   double t1 = 0.0, t2 = 0.0;
 
@@ -537,7 +537,9 @@ void AKAZE::Compute_Descriptors(std::vector<cv::KeyPoint>& kpts, cv::Mat& desc) 
 #pragma omp parallel for
 #endif
       for (int i = 0; i < (int)(kpts.size()); i++) {
-        Compute_Main_Orientation(kpts[i]);
+        if (is_rotation_invariant) {
+          Compute_Main_Orientation(kpts[i]);
+        }
         if (options_.descriptor_size == 0)
           Get_MLDB_Full_Descriptor(kpts[i], desc.ptr<unsigned char>(i));
         else

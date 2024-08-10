@@ -77,7 +77,9 @@ namespace libAKAZE {
     void Do_Subpixel_Refinement(std::vector<cv::KeyPoint>& kpts);
 
     /// Feature description methods
-    void Compute_Descriptors(std::vector<cv::KeyPoint>& kpts, cv::Mat& desc);
+    //void Compute_Descriptors(std::vector<cv::KeyPoint>& kpts, cv::Mat& desc);
+    void Compute_Descriptors(std::vector<cv::KeyPoint>& kpts, cv::Mat& desc, bool is_rotation_invariant=true);
+
 
     /// This method computes the main orientation for a given keypoint
     /// @param kpt Input keypoint
